@@ -1,0 +1,56 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<div id="header" th:fragment="header" style="background-color: #eee;">
+	<div>
+		<span>
+			<a href="/">index</a>
+		</span>
+		<span>
+			<a href="/info">info</a>
+		</span>
+		<span>
+			<a href="/dashboard">dashboard</a>
+		</span>
+		<span>
+			<a href="/admin">admin</a>
+		</span>
+	</div>
+	<div>
+		<span><a sec:authorize="isAnonymous()" th:href="@{/login}">login</a></span>
+		<span><a sec:authorize="isAuthenticated()" th:href="@{/logout}">logout</a></span>
+	</div>
+	<div>
+		<span>😊object info : </span>
+		<span sec:authorize="isAuthenticated()" sec:authentication="principal"></span>
+	</div>
+	<div>
+		<span>🐱‍💻username : </span>
+		<span sec:authorize="isAuthenticated()" sec:authentication="name"></span>
+		<span> / </span>
+		<span sec:authorize="isAuthenticated()" sec:authentication="principal.username"></span>
+	</div>
+	<div>
+		<span>💕role : </span>
+		<span sec:authorize="isAuthenticated()" sec:authentication="authorities"></span>
+		<span sec:authorize="isAuthenticated()" sec:authentication="principal.authorities"></span>
+	</div>
+	<div>
+		<span sec:authorize="hasRole('ADMIN')">admin</span>
+		<span sec:authorize="hasRole('USER')">user</span>
+		<span> / </span>
+		<span sec:authorize="hasAnyRole('ADMIN', 'USER')">admin or user</span>
+	</div>
+</div>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
