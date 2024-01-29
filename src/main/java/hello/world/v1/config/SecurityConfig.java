@@ -30,17 +30,25 @@ public class SecurityConfig {
 			.csrf((csrf)->csrf.disable())
 			.authorizeHttpRequests((authorizeRequest)->
 					authorizeRequest
-						.requestMatchers("/","/info","/join/**").permitAll()
+						.requestMatchers("/","/info","/join/**","/login","/css/**").permitAll()
 						.requestMatchers("/admin").hasRole("ADMIN")
 						.anyRequest().authenticated())
-			.formLogin(Customizer.withDefaults());
+						.exceptionHandling(error->error
+								.accessDeniedPage("/access-denied"))
+//			.formLogin(Customizer.withDefaults());
+			.formLogin(formLogin->
+				formLogin
+					.loginPage("/login-form.html")
+					.defaultSuccessUrl("/", true)
+					.failureUrl("/login?error=true")
+					.usernameParameter("username")
+					.passwordParameter("password")
+					.loginProcessingUrl("/login")
+			);
 		
 		return http.build();
 	}
 	
-	@Bean
-	protected PasswordEncoder passwordEncoder() {
-		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-	}
+	
 
 }

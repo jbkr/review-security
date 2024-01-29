@@ -25,6 +25,11 @@ public class MemberController {
 	public String join() {
 		return "join";
 	}
+	
+	@GetMapping("/join/admin")
+	public String joinAdmin() {
+		return "join-admin";
+	}
 
 	@PostMapping("/join/{role}")
 	public String createMember(@ModelAttribute MemberDto memberDto, Model model) {
@@ -42,5 +47,16 @@ public class MemberController {
 
 		return "join-success";
 	}
+	
+	@GetMapping("/login")
+	public String login() {
+		return "login-form";
+	}
+	
+	@GetMapping("/access-denied")
+	public String accessDeined() {
+		return "access-denied";
+	}
+	
 
 }
